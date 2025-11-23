@@ -1,0 +1,97 @@
+{
+  "nav": {
+    "dashboard": "Dashboard",
+    "employees": "Employees",
+    "bookings": "Bookings",
+    "analytics": "Analytics",
+    "settings": "Settings",
+    "logout": "Logout"
+  },
+  "dashboard": {
+    "welcome": "Welcome to Admin Dashboard",
+    "totalEmployees": "Total Employees",
+    "totalBookings": "Total Bookings",
+    "pendingBookings": "Pending Bookings",
+    "inProgressBookings": "In Progress"
+  },
+  "employees": {
+    "title": "Employees Management",
+    "addEmployee": "Add Employee",
+    "employeeOfWeek": "Employee of the Week",
+    "name": "Name",
+    "phone": "Phone",
+    "profession": "Profession",
+    "joinDate": "Join Date",
+    "address": "Address",
+    "tasksCompleted": "Tasks Completed",
+    "actions": "Actions",
+    "delete": "Delete",
+    "chat": "Chat on WhatsApp",
+    "addNew": "Add New Employee",
+    "cancel": "Cancel",
+    "save": "Save",
+    "professions": {
+      "doctor": "Doctor",
+      "nurse": "Nurse",
+      "technician": "Technician",
+      "assistant": "Assistant"
+    }
+  },
+  "bookings": {
+    "title": "Bookings Management",
+    "patientName": "Patient Name",
+    "phone": "Phone",
+    "address": "Address",
+    "date": "Date",
+    "time": "Time",
+    "package": "Package",
+    "status": "Status",
+    "actions": "Actions",
+    "start": "Start",
+    "delete": "Delete",
+    "chat": "Chat",
+    "statuses": {
+      "pending": "Pending",
+      "in_progress": "In Progress",
+      "completed": "Completed"
+    },
+    "execution": {
+      "title": "Start Execution",
+      "assignEmployee": "Assign Employee",
+      "selectEmployee": "Select an employee",
+      "executionTime": "Execution Time",
+      "executionLocation": "Execution Location",
+      "notes": "Notes",
+      "cancel": "Cancel",
+      "start": "Start Execution"
+    }
+  },
+  "analytics": {
+    "title": "Analytics Dashboard",
+    "comingSoon": "Analytics features coming soon..."
+  },
+  "settings": {
+    "title": "Settings",
+    "language": "Language",
+    "selectLanguage": "Select Language",
+    "english": "English",
+    "arabic": "Arabic"
+  },
+  "login": {
+    "title": "Admin Login",
+    "email": "Email",
+    "password": "Password",
+    "signin": "Sign In",
+    "signingIn": "Signing in...",
+    "or": "OR",
+    "googleSignin": "Sign in with Google",
+    "testAccount": "Test account:"
+  },
+  "common": {
+    "loading": "Loading...",
+    "noData": "No data available",
+    "error": "An error occurred",
+    "success": "Success",
+    "confirm": "Are you sure?"
+  }
+}

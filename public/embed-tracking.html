@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Analytics Tracking Script</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .container {
+      background: white;
+      border-radius: 16px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+      max-width: 800px;
+      width: 100%;
+      padding: 40px;
+    }
+
+    h1 {
+      color: #1a202c;
+      font-size: 32px;
+      margin-bottom: 10px;
+    }
+
+    .subtitle {
+      color: #718096;
+      font-size: 16px;
+      margin-bottom: 30px;
+    }
+
+    .info-box {
+      background: #edf2f7;
+      border-left: 4px solid #667eea;
+      padding: 20px;
+      margin-bottom: 30px;
+      border-radius: 8px;
+    }
+
+    .info-box h3 {
+      color: #2d3748;
+      margin-bottom: 10px;
+      font-size: 18px;
+    }
+
+    .info-box p {
+      color: #4a5568;
+      line-height: 1.6;
+      margin-bottom: 8px;
+    }
+
+    .code-box {
+      background: #1a202c;
+      border-radius: 8px;
+      padding: 20px;
+      margin: 20px 0;
+      position: relative;
+      overflow-x: auto;
+    }
+
+    .code-box code {
+      color: #68d391;
+      font-family: 'Courier New', monospace;
+      font-size: 14px;
+      line-height: 1.6;
+      white-space: pre;
+      display: block;
+    }
+
+    .copy-btn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: #667eea;
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 14px;
+      transition: all 0.2s;
+    }
+
+    .copy-btn:hover {
+      background: #5a67d8;
+      transform: translateY(-2px);
+    }
+
+    .copy-btn:active {
+      transform: translateY(0);
+    }
+
+    .copy-btn.copied {
+      background: #48bb78;
+    }
+
+    .warning {
+      background: #fff5f5;
+      border-left: 4px solid #f56565;
+      padding: 15px;
+      border-radius: 8px;
+      margin: 20px 0;
+    }
+
+    .warning p {
+      color: #742a2a;
+      font-size: 14px;
+    }
+
+    .step {
+      margin: 30px 0;
+    }
+
+    .step h3 {
+      color: #2d3748;
+      margin-bottom: 15px;
+      font-size: 20px;
+    }
+
+    .step ol {
+      margin-left: 20px;
+      color: #4a5568;
+    }
+
+    .step li {
+      margin: 10px 0;
+      line-height: 1.6;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🎯 Analytics Tracking Script</h1>
+    <p class="subtitle">Add this script to curevie.net to track visitor analytics</p>
+
+    <div class="info-box">
+      <h3>📊 What This Script Tracks</h3>
+      <p>✅ Page views and visitor sessions</p>
+      <p>✅ User interactions (clicks, form submissions)</p>
+      <p>✅ Traffic sources and referrers</p>
+      <p>✅ UTM campaign parameters</p>
+      <p>✅ Session duration and behavior</p>
+    </div>
+
+    <div class="step">
+      <h3>Step 1: Copy the Tracking Script</h3>
+      <p style="color: #4a5568; margin-bottom: 15px;">Copy this script and paste it in the <code>&lt;head&gt;</code> section of your curevie.net website:</p>
+
+      <div class="code-box">
+        <button class="copy-btn" onclick="copyCode()">Copy Code</button>
+        <code id="tracking-code">&lt;!-- Analytics Tracking Script --&gt;
+&lt;script type="module"&gt;
+import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
+import { getFirestore, collection, addDoc, serverTimestamp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js';
+
+// Firebase configuration
+const firebaseConfig = {
+  apiKey: "YOUR_FIREBASE_API_KEY",
+  authDomain: "YOUR_FIREBASE_AUTH_DOMAIN",
+  projectId: "YOUR_FIREBASE_PROJECT_ID",
+  storageBucket: "YOUR_FIREBASE_STORAGE_BUCKET",
+  messagingSenderId: "YOUR_FIREBASE_MESSAGING_SENDER_ID",
+  appId: "YOUR_FIREBASE_APP_ID"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+// Session management
+function getOrCreateSessionId() {
+  let sessionId = sessionStorage.getItem('analytics_session_id');
+  if (!sessionId) {
+    sessionId = Date.now() + '-' + Math.random().toString(36).substr(2, 9);
+    sessionStorage.setItem('analytics_session_id', sessionId);
+  }
+  return sessionId;
+}
+
+const sessionId = getOrCreateSessionId();
+const sessionStart = Date.now();
+
+// Get UTM parameters
+function getUTMParams() {
+  const params = new URLSearchParams(window.location.search);
+  return {
+    utm_source: params.get('utm_source'),
+    utm_medium: params.get('utm_medium'),
+    utm_campaign: params.get('utm_campaign')
+  };
+}
+
+// Track event
+async function trackEvent(eventType, metadata = {}) {
+  const utm = getUTMParams();
+
+  try {
+    await addDoc(collection(db, 'events'), {
+      eventType,
+      path: window.location.pathname,
+      fullUrl: window.location.href,
+      referrer: document.referrer || null,
+      sessionId: sessionId,
+      lang: navigator.language,
+      tz: Intl.DateTimeFormat().resolvedOptions().timeZone,
+      utm_source: utm.utm_source,
+      utm_medium: utm.utm_medium,
+      utm_campaign: utm.utm_campaign,
+      metadata: metadata,
+      domain: window.location.hostname,
+      createdAt: serverTimestamp()
+    });
+  } catch (error) {
+    console.error('Analytics error:', error);
+  }
+}
+
+// Track initial events
+trackEvent('session_start');
+trackEvent('page_view');
+
+// Track session end
+window.addEventListener('beforeunload', () => {
+  const duration = Date.now() - sessionStart;
+  trackEvent('session_end', { duration_ms: duration });
+});
+
+// Expose for custom tracking
+window.trackEvent = trackEvent;
+&lt;/script&gt;</code>
+      </div>
+    </div>
+
+    <div class="warning">
+      <p><strong>⚠️ Important:</strong> Replace the Firebase configuration values (YOUR_FIREBASE_API_KEY, etc.) with your actual Firebase credentials from the .env file in your admin dashboard project.</p>
+    </div>
+
+    <div class="step">
+      <h3>Step 2: Configure Firebase</h3>
+      <ol>
+        <li>Open your <code>.env</code> file in the admin dashboard project</li>
+        <li>Copy the Firebase credentials</li>
+        <li>Replace the placeholder values in the script above</li>
+        <li>Save the changes</li>
+      </ol>
+    </div>
+
+    <div class="step">
+      <h3>Step 3: Set Firestore Rules</h3>
+      <p style="color: #4a5568; margin-bottom: 15px;">Add these rules to your Firebase Firestore to allow the script to write events:</p>
+
+      <div class="code-box">
+        <button class="copy-btn" onclick="copyFirestoreRules()">Copy Rules</button>
+        <code id="firestore-rules">rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Allow reading/writing events from any authenticated or unauthenticated source
+    match /events/{eventId} {
+      allow read: if request.auth != null;
+      allow create: if true; // Allow anyone to create events
+    }
+
+    // Keep existing rules for other collections
+    match /bookings/{bookingId} {
+      allow read, write: if request.auth != null;
+    }
+
+    match /employees/{employeeId} {
+      allow read, write: if request.auth != null;
+    }
+  }
+}</code>
+      </div>
+    </div>
+
+    <div class="step">
+      <h3>Step 4: Test the Integration</h3>
+      <ol>
+        <li>Deploy the script to curevie.net</li>
+        <li>Visit curevie.net in your browser</li>
+        <li>Open your admin dashboard and go to Analytics</li>
+        <li>You should see events appearing from curevie.net</li>
+      </ol>
+    </div>
+
+    <div class="info-box" style="margin-top: 30px;">
+      <h3>💡 Custom Event Tracking</h3>
+      <p>You can track custom events on curevie.net by calling:</p>
+      <code style="background: white; padding: 10px; display: block; margin-top: 10px; border-radius: 4px; color: #2d3748;">
+        window.trackEvent('booking_created', { bookingId: '123' });
+      </code>
+    </div>
+  </div>
+
+  <script>
+    function copyCode() {
+      const code = document.getElementById('tracking-code').textContent;
+      navigator.clipboard.writeText(code).then(() => {
+        const btn = event.target;
+        const originalText = btn.textContent;
+        btn.textContent = '✓ Copied!';
+        btn.classList.add('copied');
+        setTimeout(() => {
+          btn.textContent = originalText;
+          btn.classList.remove('copied');
+        }, 2000);
+      });
+    }
+
+    function copyFirestoreRules() {
+      const rules = document.getElementById('firestore-rules').textContent;
+      navigator.clipboard.writeText(rules).then(() => {
+        const btn = event.target;
+        const originalText = btn.textContent;
+        btn.textContent = '✓ Copied!';
+        btn.classList.add('copied');
+        setTimeout(() => {
+          btn.textContent = originalText;
+          btn.classList.remove('copied');
+        }, 2000);
+      });
+    }
+  </script>
+</body>
+</html>

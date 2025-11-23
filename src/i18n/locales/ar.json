@@ -1,0 +1,97 @@
+{
+  "nav": {
+    "dashboard": "لوحة التحكم",
+    "employees": "الموظفين",
+    "bookings": "الحجوزات",
+    "analytics": "التحليلات",
+    "settings": "الإعدادات",
+    "logout": "تسجيل الخروج"
+  },
+  "dashboard": {
+    "welcome": "مرحباً بك في لوحة التحكم",
+    "totalEmployees": "إجمالي الموظفين",
+    "totalBookings": "إجمالي الحجوزات",
+    "pendingBookings": "الحجوزات المعلقة",
+    "inProgressBookings": "قيد التنفيذ"
+  },
+  "employees": {
+    "title": "إدارة الموظفين",
+    "addEmployee": "إضافة موظف",
+    "employeeOfWeek": "موظف الأسبوع",
+    "name": "الاسم",
+    "phone": "الهاتف",
+    "profession": "المهنة",
+    "joinDate": "تاريخ الانضمام",
+    "address": "العنوان",
+    "tasksCompleted": "المهام المنجزة",
+    "actions": "الإجراءات",
+    "delete": "حذف",
+    "chat": "الدردشة عبر واتساب",
+    "addNew": "إضافة موظف جديد",
+    "cancel": "إلغاء",
+    "save": "حفظ",
+    "professions": {
+      "doctor": "طبيب",
+      "nurse": "ممرض",
+      "technician": "فني",
+      "assistant": "مساعد"
+    }
+  },
+  "bookings": {
+    "title": "إدارة الحجوزات",
+    "patientName": "اسم المريض",
+    "phone": "الهاتف",
+    "address": "العنوان",
+    "date": "التاريخ",
+    "time": "الوقت",
+    "package": "الباقة",
+    "status": "الحالة",
+    "actions": "الإجراءات",
+    "start": "بدء",
+    "delete": "حذف",
+    "chat": "دردشة",
+    "statuses": {
+      "pending": "معلق",
+      "in_progress": "قيد التنفيذ",
+      "completed": "مكتمل"
+    },
+    "execution": {
+      "title": "بدء التنفيذ",
+      "assignEmployee": "تعيين موظف",
+      "selectEmployee": "اختر موظفاً",
+      "executionTime": "وقت التنفيذ",
+      "executionLocation": "موقع التنفيذ",
+      "notes": "ملاحظات",
+      "cancel": "إلغاء",
+      "start": "بدء التنفيذ"
+    }
+  },
+  "analytics": {
+    "title": "لوحة التحليلات",
+    "comingSoon": "ميزات التحليلات قريباً..."
+  },
+  "settings": {
+    "title": "الإعدادات",
+    "language": "اللغة",
+    "selectLanguage": "اختر اللغة",
+    "english": "الإنجليزية",
+    "arabic": "العربية"
+  },
+  "login": {
+    "title": "تسجيل دخول المسؤول",
+    "email": "البريد الإلكتروني",
+    "password": "كلمة المرور",
+    "signin": "تسجيل الدخول",
+    "signingIn": "جارٍ تسجيل الدخول...",
+    "or": "أو",
+    "googleSignin": "تسجيل الدخول باستخدام Google",
+    "testAccount": "حساب تجريبي:"
+  },
+  "common": {
+    "loading": "جارٍ التحميل...",
+    "noData": "لا توجد بيانات",
+    "error": "حدث خطأ",
+    "success": "نجح",
+    "confirm": "هل أنت متأكد؟"
+  }
+}

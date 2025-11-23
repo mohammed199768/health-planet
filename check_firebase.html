@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Check Firebase Collections</title>
+</head>
+<body>
+  <h1>Firebase Collection Names</h1>
+  <div id="result">Loading...</div>
+  
+  <script type="module">
+    import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
+    import { getFirestore, collection, getDocs } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js';
+    
+    const firebaseConfig = {
+      apiKey: "AIzaSyDxBddPLX3JYEvX0jzU9qE4Hku7zY_7Z-I",
+      authDomain: "planet-health-jo.firebaseapp.com",
+      projectId: "planet-health-jo",
+      storageBucket: "planet-health-jo.firebasestorage.app",
+      messagingSenderId: "892627508279",
+      appId: "1:892627508279:web:e0a71a7fee252b94b073b2"
+    };
+    
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+    
+    async function checkCollections() {
+      const result = document.getElementById('result');
+      let html = '<h2>Testing Collections:</h2>';
+      
+      try {
+        // Check employees
+        const employeesSnap = await getDocs(collection(db, 'employees'));
+        html += `<p>✓ Collection 'employees' exists: ${employeesSnap.size} documents</p>`;
+        employeesSnap.forEach(doc => {
+          html += `<pre>${JSON.stringify(doc.data(), null, 2)}</pre>`;
+        });
+      } catch (e) {
+        html += `<p>✗ Collection 'employees' error: ${e.message}</p>`;
+      }
+      
+      try {
+        // Check bookings
+        const bookingsSnap = await getDocs(collection(db, 'bookings'));
+        html += `<p>✓ Collection 'bookings' exists: ${bookingsSnap.size} documents</p>`;
+        bookingsSnap.forEach(doc => {
+          html += `<pre>${JSON.stringify(doc.data(), null, 2)}</pre>`;
+        });
+      } catch (e) {
+        html += `<p>✗ Collection 'bookings' error: ${e.message}</p>`;
+      }
+      
+      result.innerHTML = html;
+    }
+    
+    checkCollections();
+  </script>
+</body>
+</html>
